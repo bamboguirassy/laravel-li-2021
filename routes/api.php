@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Produit;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/produit', function () {
+    return Produit::all();
+});
+
+Route::post('/produit', function(Request $request) {
+ return Produit::create($request->all());
+});
+
+Route::delete('/produit/{id}', function ($id) {
+    $produit = Produit::find($id);
+    $produit->delete();
+    return $produit;
 });
